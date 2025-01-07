@@ -1,0 +1,36 @@
+[
+        {
+            "id": 0,
+            "titulo": "Todas"
+        },
+        {
+            "id": 1,
+            "titulo": "Estrella",
+            "tag": 1
+        },
+        {
+            "id": 2,
+            "titulo": "Galaxia",
+            "tag":2
+        },
+        {
+            "id": 3,
+            "titulo": "Luna",
+            "tag":3
+        },
+        {
+            "id": 4,
+            "titulo": "Nebulosa",
+            "tag":4
+        },
+        {
+            "id": 5,
+            "titulo": "Asteroide",
+            "tag": 5
+        },
+        {
+            "id": 6,
+            "titulo": "Constelacion",
+            "tag":6
+        }
+    ]
