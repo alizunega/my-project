@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
 import BotonIcono from "../../BotonIcono";
 import { AiFillHeart, AiOutlineHeart, AiOutlineExpandAlt } from "react-icons/ai"
 
+import styled from "styled-components";
+import { GlobalContext } from "../../../context/GlobalContext";
 
 //width: ${(props) => (props.$expandida ? '90%' : '460px')};
 
-import styled from "styled-components";
 
 const StyledFigure = styled.figure`
     width: ${(props) => (props.$expandida ? '90vw' : '100%')};
@@ -58,9 +60,11 @@ const StyledFooter = styled.footer`
 `
 
 
-const Imagen = ({ foto, expandida = false, alSolicitarZoom, manejoFavoritos }) => {
+const Imagen = ({ foto, expandida = false }) => {
 
     const iconoFav = foto.fav ? <AiFillHeart /> : <AiOutlineHeart />
+    const { dispatch } = useContext(GlobalContext);
+   
 
     return (
         <StyledFigure $expandida={expandida} id={`foto-${foto.id}`} >
@@ -70,11 +74,11 @@ const Imagen = ({ foto, expandida = false, alSolicitarZoom, manejoFavoritos }) =
                 <StyledFooter>
                     <h4>{foto.fuente}</h4>
 
-                    <BotonIcono onClick={()=>{manejoFavoritos(foto)}}>
+                    <BotonIcono onClick={()=>dispatch({type: 'SET_MANEJO_FAVORITOS', payload: foto})}>
                         {iconoFav}
                     </BotonIcono>
                     {!expandida && <BotonIcono aria-hidden={expandida}
-                        onClick={() => alSolicitarZoom(foto)}>
+                        onClick={() => dispatch({type: 'SET_FOTO_SELECCIONADA', payload: foto})}>
                         <AiOutlineExpandAlt />
                     </BotonIcono>}
 

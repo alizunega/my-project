@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --open",
-    "server": "json-server --watch db.json --port 8080",
+    "server": "json-server --watch './src/fotos.json' --port 8080",
     "start": "concurrently \"npm run dev\" \"npm run server\"",
     "build": "vite build",
     "lint": "eslint .",

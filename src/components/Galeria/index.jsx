@@ -1,10 +1,11 @@
-/* eslint-disable react/prop-types */
-
 import styled from "styled-components";
 import Title from "../Title";
 import Populares from "./Populares";
 import Tag from "./Tags";
 import Imagen from "./Imagen";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
+import Loading from "./Loading";
 
 const GaleriaContainer = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const GaleriaContainer = styled.div`
   @media screen and (max-width: 800px) {
     flex-direction: column;
     align-items: center;
-    margin: .5em auto;
+    margin: 0.5em auto;
   }
 `;
 
@@ -23,7 +24,6 @@ const SeccionFluida = styled.section`
   flex-grow: 1;
   align-items: center;
   width: 100%;
-
 `;
 
 const ContainerFotos = styled.section`
@@ -36,37 +36,48 @@ const ContainerFotos = styled.section`
     flex-direction: column;
     justify-content: space-around;
   }
-
 `;
 
-const Galeria = ({
-  fotos = [],
-  setTag,
-  alSeleccionarFoto,
-  manejoFavoritos,
-}) => {
-  // console.log(fotos)
+const Galeria = () => {
+  //const {setTag, alSeleccionarFoto, manejoFavoritos} = useContext(GlobalContext);
+  const { state } = useContext(GlobalContext);
+
+
   return (
     <>
-      <Tag setTag={setTag} />
-      <GaleriaContainer>
-        <SeccionFluida>
-          <Title>Navegue por la galería</Title>
-          <ContainerFotos>
-            {fotos.map((foto) => {
-              return (
-                <Imagen
-                  alSolicitarZoom={alSeleccionarFoto}
-                  key={foto.id}
-                  foto={foto}
-                  manejoFavoritos={manejoFavoritos}
-                />
-              );
-            })}
-          </ContainerFotos>
-        </SeccionFluida>
-        <Populares />
-      </GaleriaContainer>
+      <Tag />
+      {
+        state.fotosGaleria.length === 0 ?
+         <Loading /> :
+          <GaleriaContainer>
+            <SeccionFluida>
+              <Title>Navegue por la galería</Title>
+              <ContainerFotos>
+                {state.fotosGaleria
+                  .filter((foto) => {
+                    return (
+                      state.filtro == "" ||
+                      foto.titulo
+                        .toLocaleLowerCase()
+                        .normalize("NFD")
+                        .replace(/\p{Diacritic}/gu, "")
+                        .includes(
+                          state.filtro
+                            .toLocaleLowerCase()
+                            .normalize("NFD")
+                            .replace(/\p{Diacritic}/gu, "")
+                        )
+                    );
+                  })
+                  .map((foto) => (
+                    <Imagen key={foto.id} foto={foto} />
+                  ))}
+              </ContainerFotos>
+            </SeccionFluida>
+            <Populares />
+          </GaleriaContainer>
+      }
+
     </>
   );
 };

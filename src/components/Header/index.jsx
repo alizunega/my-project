@@ -1,7 +1,7 @@
-/* eslint-disable react/prop-types */
 
 import styled from "styled-components";
 import InputSearch from "../InputSeach";
+
 
 const HeaderStyled = styled.header`
     display: flex;
@@ -15,10 +15,11 @@ const HeaderStyled = styled.header`
 `
 
 
-const Header = ({filtro, setFiltro}) => {
+const Header = () => {
+   
     return <HeaderStyled>
         <img src="./img/video.png" alt="Logo App Videos" />
-        <InputSearch filtro={filtro} setFiltro={setFiltro}  />
+        <InputSearch />
     </HeaderStyled>
 }
 
