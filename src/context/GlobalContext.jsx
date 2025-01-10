@@ -4,7 +4,7 @@ import { useReducer } from "react";
 
 const GlobalContext = createContext();
 
-const URL = "http://localhost:8080/fotos";
+const URL = "https://670fcaf9a85f4164ef2bf249.mockapi.io/fotos";
 
 //estados iniciales
 const initialState = {
