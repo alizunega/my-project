@@ -5,6 +5,7 @@ import { AiFillHeart, AiOutlineHeart, AiOutlineExpandAlt } from "react-icons/ai"
 
 import styled from "styled-components";
 import { GlobalContext } from "../../../context/GlobalContext";
+import useFotoModal from "../../../hooks/useFotoModal";
 
 //width: ${(props) => (props.$expandida ? '90%' : '460px')};
 
@@ -64,6 +65,7 @@ const Imagen = ({ foto, expandida = false }) => {
 
     const iconoFav = foto.fav ? <AiFillHeart /> : <AiOutlineHeart />
     const { dispatch } = useContext(GlobalContext);
+    const { abrirModal } = useFotoModal();
    
 
     return (
@@ -78,7 +80,7 @@ const Imagen = ({ foto, expandida = false }) => {
                         {iconoFav}
                     </BotonIcono>
                     {!expandida && <BotonIcono aria-hidden={expandida}
-                        onClick={() => dispatch({type: 'SET_FOTO_SELECCIONADA', payload: foto})}>
+                        onClick={() => abrirModal(foto)}>
                         <AiOutlineExpandAlt />
                     </BotonIcono>}
 

@@ -12,6 +12,7 @@ const initialState = {
   fotosGaleria: [],
   fotoSeleccionada: null,
   tag: 0,
+  modalAbierto: false
 };
 
 //acciones para eventos definidos
@@ -22,7 +23,9 @@ const reducer = (state, action) => {
     case "SET_FOTOS_GALERIA":
       return { ...state, fotosGaleria: action.payload };
     case "SET_FOTO_SELECCIONADA":
-      return { ...state, fotoSeleccionada: action.payload };
+      return { ...state,
+         fotoSeleccionada: action.payload,
+        modalAbierto: action.payload != null ? true : false };
     case "SET_TAG":
       return { ...state, tag: action.payload };
     case "SET_MANEJO_FAVORITOS":

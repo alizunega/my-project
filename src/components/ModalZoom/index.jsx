@@ -1,11 +1,12 @@
-import { useContext } from "react";
+
 import styled from "styled-components";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 import Imagen from "../Galeria/Imagen";
 import BotonIcono from "../BotonIcono";
 
-import { GlobalContext } from "../../context/GlobalContext";
+
+import useFotoModal from "../../hooks/useFotoModal";
 
 const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
@@ -37,18 +38,19 @@ const StyledDialog = styled.dialog`
 `;
 
 const ModalZoom = () => {
-  const { state, dispatch } = useContext(GlobalContext);
+  const { estaAbierto, fotoSeleccionada, cerrarModal } = useFotoModal();
+
   return <>
 
     {
-      state.fotoSeleccionada && <>
+      estaAbierto && <>
 
         <Overlay />
         <StyledDialog
-          open={!!state.fotoSeleccionada}
-          onClose={() => dispatch({ type: 'SET_FOTO_SELECCIONADA', payload: null })}
+          open={!!fotoSeleccionada}
+          onClose={() => cerrarModal()}
         >
-          <Imagen foto={state.fotoSeleccionada} expandida={true} />
+          <Imagen foto={fotoSeleccionada} expandida={true} />
           <form method="dialog">
             <BotonIcono formMethod="dialog" >
               <AiOutlineCloseCircle style={{ width: "3em" }} />
